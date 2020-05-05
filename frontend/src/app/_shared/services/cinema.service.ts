@@ -13,12 +13,23 @@ export class CinemaService {
 
   constructor(private http: HttpClient) { }
 
-  getCinemas(ville: getCinemas) {
-    return this.http.get(ville._links.cinemas);
+  getCinemas(ville: getCinemasAPI): Observable<Cinema[]> {
+    return this.http.get<getCinemas>(ville._links.cinemas.href)
+            .pipe(
+              map(data => data._embedded.cinemas)
+            )
+
   }
 }
-interface getCinemas {
+interface getCinemasAPI {
   _links:{
+    cinemas: {
+      href: string
+    }
+  }
+}
+interface getCinemas{
+  _embedded:{
     cinemas: Cinema[]
   }
 }
