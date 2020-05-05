@@ -1,12 +1,54 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <ul *ngIf="villes" class="list-group">
-                <li (click)="onGetCinemas(ville)" class="list-group-item" *ngFor="let ville of villes" style="cursor: pointer;">{{ ville.name }}</li>
+                <li [ngClass]="ville === currentVille ? 'active':''" (click)="onGetCinemas(ville)" class="list-group-item pointer" *ngFor="let ville of villes">{{ ville.name }}</li>
             </ul>
         </div>
-        <div class="col-md-8">
-            Cinémas
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Liste des cinémas</div>
+                <div class="panel-body">
+                    <ul *ngIf="cinemas" class="nav nav-pills cinemasMargsBottom pointer">
+                        <li [ngClass]="c === currentCinema ? 'active':''" *ngFor="let c of cinemas">
+                            <a (click)="onGetSalles(c)">{{ c.name }}</a>
+                        </li>
+                    </ul>
+                    <div class="row" *ngIf="salles">
+                        <div *ngFor="let salle of salles">
+                            <div class="col-md-6">
+                                <div class="panel panel-default text-center">
+                                    <div class="panel-heading">{{ salle.name }}</div>
+                                    <div class="panel-body" *ngIf="salle.projections">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img class="filmImage" src="{{ getImage(salle) }}" alt="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item">Séances:</li>
+                                                    <li [ngClass]="p === currentProjection ? 'active':''" (click)="onGetTicketsPlaces(p)" *ngFor="let p of salle.projections" class="list-group-item pointer">
+                                                        {{ p.seance.heureDebut | slice:0:5 }} => {{ p.prix | number:'0.00' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="currentProjection">
+                                            <div *ngIf="salle.id == currentProjection.salle.id">
+                                                <div class="row" *ngIf="currentProjection.tickets">
+                                                    <button class="btn btn-success tickets" *ngFor="let t of currentProjection.tickets">
+                                                        {{ t.place.numero }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

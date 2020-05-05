@@ -1,0 +1,16 @@
+.filmImage {
+    max-width: 100%;
+}
+
+.cinemasMargsBottom {
+    margin-bottom: 15px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.tickets {
+    margin: 2px;
+    width: 40px;
+}
