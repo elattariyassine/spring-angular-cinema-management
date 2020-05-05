@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <ul *ngIf="villes" class="list-group">
+                <li (click)="onGetCinemas(ville)" class="list-group-item" *ngFor="let ville of villes" style="cursor: pointer;">{{ ville.name }}</li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            Cinémas
+        </div>
+    </div>
+</div>
