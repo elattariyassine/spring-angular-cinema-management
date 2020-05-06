@@ -2,6 +2,7 @@ package com.shanks.cinema;
 
 import com.shanks.cinema.entities.Film;
 import com.shanks.cinema.entities.Salle;
+import com.shanks.cinema.entities.Ticket;
 import com.shanks.cinema.service.ICinemaInitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,7 +24,7 @@ public class CinemaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		repositoryRestConfiguration.exposeIdsFor(Film.class);
+		repositoryRestConfiguration.exposeIdsFor(Film.class, Ticket.class);
 		repositoryRestConfiguration.exposeIdsFor(Salle.class);
 		/*iCinemaInitService.initVilles();
 		iCinemaInitService.initCinemas();

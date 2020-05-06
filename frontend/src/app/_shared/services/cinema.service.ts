@@ -10,7 +10,7 @@ import { Salle } from '../models/salle';
 })
 export class CinemaService {
 
-  // private baseUrl = 'http://localhost:8080/imageFilm/';
+  private Checkout = 'http://localhost:8080/payerTickets';
   imageUrl = 'http://localhost:8080/imageFilm/';
 
   constructor(private http: HttpClient) { }
@@ -38,6 +38,9 @@ export class CinemaService {
     console.log(url);
     return this.http.get(`${url}?projection=ticketProj`)
             .pipe(map((data: any) => data._embedded.tickets));
+  }
+  payerTickets(formData){
+    return this.http.post(this.Checkout, formData);
   }
 }
 interface getCinemasAPI {

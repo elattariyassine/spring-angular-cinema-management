@@ -18,6 +18,7 @@ export class CinemaComponent implements OnInit {
   salles: Salle[] = [];
   currentProjection;
   currentCinema;
+  selectedTickets;
 
   constructor(private villeService: VilleService,
               private cinemasService: CinemaService) { }
@@ -50,9 +51,6 @@ export class CinemaComponent implements OnInit {
           });
       });
     });
-    console.log('-------------------------------------------------');
-    console.log(this.salles);
-    console.log('-------------------------------------------------');
   }
   getImage(salle){
     console.log(salle);
@@ -62,9 +60,47 @@ export class CinemaComponent implements OnInit {
     this.currentProjection = p;
     this.cinemasService.getTicketsPlacesForAprojection(p).subscribe(res => {
       this.currentProjection.tickets = res;
+      this.selectedTickets = [];
       console.log("((((((())))))))))))))))))))");
       console.log(res);
       console.log("((((((())))))))))))))))))))");
     });
+  }
+  onSelectTicket(t){
+    if(!t.selected){
+      t.selected = true;  
+      this.selectedTickets.push(t);
+    }
+    else{
+      t.selected = false;
+      this.selectedTickets.splice(this.selectedTickets.indexOf(t), 1);
+    }
+    this.selectedTickets.forEach(e=>{
+      console.log(e);
+    })
+  }
+  getTicketClass(t){
+    let str="btn tickets ";
+    if(t.reservee){
+      str += "btn-danger";
+    }
+    else if(t.selected){
+      str += "btn-warning";
+    }else{
+      str += "btn-success";
+    }
+    return str;
+  }
+  onPayTicket(dataForm){
+    let tickets = [];
+    this.selectedTickets.forEach(t => {
+      tickets.push(t.id);
+    });
+    dataForm.tickets = tickets;
+    this.cinemasService.payerTickets(dataForm)
+      .subscribe(re => {
+        alert('Tickets réservés avec succès!');
+        this.onGetTicketsPlaces(this.currentProjection);
+      });
   }
 }
