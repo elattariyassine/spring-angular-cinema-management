@@ -36,7 +36,6 @@ export class CinemaComponent implements OnInit {
     this.salles = undefined; 
     this.cinemasService.getCinemas(ville).subscribe(res => {
       this.cinemas = res;
-      console.log(res);
     });
   }
   onGetSalles(cinema){
@@ -46,14 +45,12 @@ export class CinemaComponent implements OnInit {
       this.salles.forEach(s => {
         this.cinemasService.getProjectionsBySalle(s)
           .subscribe((res: any) => {
-            console.log(res);
             s.projections = res;
           });
       });
     });
   }
   getImage(salle){
-    console.log(salle);
     return this.cinemasService.imageUrl + salle.projections[0].film.id;
   }
   onGetTicketsPlaces(p){
@@ -61,9 +58,6 @@ export class CinemaComponent implements OnInit {
     this.cinemasService.getTicketsPlacesForAprojection(p).subscribe(res => {
       this.currentProjection.tickets = res;
       this.selectedTickets = [];
-      console.log("((((((())))))))))))))))))))");
-      console.log(res);
-      console.log("((((((())))))))))))))))))))");
     });
   }
   onSelectTicket(t){
@@ -75,9 +69,6 @@ export class CinemaComponent implements OnInit {
       t.selected = false;
       this.selectedTickets.splice(this.selectedTickets.indexOf(t), 1);
     }
-    this.selectedTickets.forEach(e=>{
-      console.log(e);
-    })
   }
   getTicketClass(t){
     let str="btn tickets ";

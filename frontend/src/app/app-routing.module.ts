@@ -4,7 +4,7 @@ import { CinemaComponent } from './components/cinema/cinema.component';
 
 
 const routes: Routes = [
-  { path:'cinema', component: CinemaComponent },
+  { path:'**', redirectTo:'cinema'},
   { path:'cinema', component: CinemaComponent }
 ];
 

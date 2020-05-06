@@ -35,6 +35,5 @@ public class CinemaApplication implements CommandLineRunner {
 		iCinemaInitService.initFilms();
 		iCinemaInitService.initProjections();
 		iCinemaInitService.initTickets();*/
-		System.out.println("e");
 	}
 }

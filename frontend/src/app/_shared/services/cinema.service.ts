@@ -29,7 +29,6 @@ export class CinemaService {
   }
   getProjectionsBySalle(salle){
     let url:string = salle._links.projections.href.replace("{?projection}","");
-    console.log(url);
     return this.http.get(`${url}?projection=p1`)
             .pipe(map((data: any) => data._embedded.projections));
   }
